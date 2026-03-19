@@ -1,0 +1,27 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.DotSettings.user
+
+## Publish output
+publish/
+
+## Secrets
+appsettings.Production.json
+
+## IDE
+.idea/
+.vscode/
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Publish settings (contains credentials)
+*.publishSettings
+
+## Logs
+logs/
