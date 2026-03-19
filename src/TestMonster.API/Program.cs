@@ -17,13 +17,22 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var hasDatabase = !string.IsNullOrEmpty(connectionString)
+    && !connectionString.Contains("YOUR_MONSTERASP_SQL_SERVER");
+
+if (hasDatabase)
+{
+    builder.Services.AddInfrastructureServices(builder.Configuration);
+}
+
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+if (hasDatabase)
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
