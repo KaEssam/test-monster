@@ -48,7 +48,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: published-app
-          path: ./publish
+          path: publish
+
+      - name: List publish contents
+        run: dir publish
+        shell: cmd
 
       - name: Deploy to MonsterASP.NET
         uses: rasmusbuchholdt/simply-web-deploy@2.1.0
@@ -57,4 +61,4 @@ jobs:
           server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
           server-username: ${{ secrets.SERVER_USERNAME }}
           server-password: ${{ secrets.SERVER_PASSWORD }}
-          source-path: ./publish
+          source-path: publish
